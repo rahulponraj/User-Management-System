@@ -1,0 +1,68 @@
+<% include("../layouts/header.ejs") %>
+
+<h1>Dashboard</h1>
+
+<a href="/admin/new-user">Add New User</a>
+<br><br>
+
+
+
+<table width="50%">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Image</th>
+        <th>Verified</th>
+        <th>Action</th>
+    </tr>
+
+    <% 
+        if(users.length>0){
+            for(let i=0;i<users.length;i++){
+            %>
+            <tr>
+                <td><%= users[i].name%></td>
+                <td><%= users[i].email%></td>
+                <td><%= users[i].mobile%></td>
+                <td><img src="/userImages/<%= users[i].image %>" alt="<%= users[i].image %>" width="100px" height="100px" </td>
+                <td><% 
+                        if(users[i].is_varified == 0){
+                            %>
+                            <p>Not Verified</p>
+                            <%
+
+                        }
+                        else{
+                            %>
+                            <p>Verified</p>
+                            <%
+                        }
+                    %>
+                </td>
+                <td><a href="/admin/edit-user?id=<%= users[i]._id %>">Edit</a>
+                    <a href="/admin/delete-user?id=<%= users[i]._id %>">Delete</a>
+                </td>
+            </tr>
+            <%
+            }
+        }
+        else{
+            %>
+            <tr>
+                <td colspan="5">Users Not Found</td>
+            </tr>
+            <%
+        }
+    
+    %>
+
+
+
+</table>
+
+<br>
+
+<a href="/admin/home">Go To Home</a>
+
+<% include("../layouts/footer.ejs") %>
